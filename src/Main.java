@@ -1,10 +1,8 @@
 import entities.Expense;
 import entities.ExpenseCategory;
+import exception.InvalidCategoryException;
 import exception.InvalidExpenseException;
-import interfaces.ExpenseAmountValidator;
-import interfaces.ExpenseAmountValidatorImpl;
-import interfaces.ExpenseCalculator;
-import interfaces.ExpenseCalculatorImpl;
+import interfaces.*;
 
 import java.util.Scanner;
 
@@ -19,6 +17,8 @@ public class Main {
         int cantidadGastosAIngresar = 0;
 
         ExpenseCalculator expenseCalculator = new ExpenseCalculatorImpl();
+        ExpenseAmountValidator expenseAmountValidator = new ExpenseAmountValidatorImpl();
+        ExpenseCategoryValidator expenseCategoryValidator = new ExpenseCategoryValidatorImpl();
 
         do {
             System.out.print("Ingrese la cantidad de gastos a registrar: ");
@@ -31,8 +31,8 @@ public class Main {
                 scanner.nextLine();
             }catch (Exception e) {
                 System.out.println("Error al leer la entrada. Asegúrese de ingresar un número entero válido.");
-                scanner.nextLine(); // Limpiar el buffer de entrada
-                cantidadGastosAIngresar = 0; // Reiniciar la cantidad para volver a solicitarla
+                scanner.nextLine();
+                cantidadGastosAIngresar = 0;
             }
         } while (cantidadGastosAIngresar <= 0);
 
@@ -52,7 +52,7 @@ public class Main {
                     if (amount < 0) {
                     System.out.println("El monto no es válido. Debe ingresar un valor positivo.");
                     } else {
-                    isAmountValid = true;
+                        isAmountValid = true;
                     }
                 }catch (Exception e){
                     System.out.println("Error al leer el monto. Asegúrese de ingresar un número válido.");
@@ -62,16 +62,25 @@ public class Main {
             }
             scanner.nextLine();
 
-            System.out.print("Ingrese la categoria del gasto: ");
-            String name = scanner.nextLine().toLowerCase().trim();
-            category.setName(name);
+            String categoryName = null;
+            boolean isCategoryValid = false;
+            while (!isCategoryValid) {
+                try {
+                    System.out.print("Ingrese la categoría del gasto " + (index + 1) + ": ");
+                    categoryName = expenseCategoryValidator.validateCategory(scanner.nextLine().toLowerCase().trim());
+                    isCategoryValid = true;
+                } catch (InvalidCategoryException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            category.setName(categoryName);
 
             System.out.print("Ingrese la fecha del gasto: (dd/MM/yyyy): ");
             String date = scanner.nextLine();
 
             expense.setId(counter);
             expense.setAmount(amount);
-            expense.setCategory(category);
+            expense.setCategory(categoryName);
             expense.setDate(date);
 
             expenses[index] = expense;

@@ -3,13 +3,13 @@ package entities;
 public class Expense {
     private Integer id;
     private Double amount;
-    private ExpenseCategory category;
+    private String category;
     private String date;
 
     public Expense() {
     }
 
-    public Expense(Integer id, Double amount, ExpenseCategory category, String date) {
+    public Expense(Integer id, Double amount, String category, String date) {
         this.id = id;
         this.amount = amount;
         this.category = category;
@@ -32,11 +32,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public ExpenseCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(ExpenseCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
