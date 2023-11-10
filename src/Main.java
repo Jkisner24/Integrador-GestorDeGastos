@@ -44,26 +44,27 @@ public class Main {
 
             boolean isAmountValid = false;
 
-            while(!isAmountValid){
-                System.out.print("Ingrese el monto del gasto: " + (index + 1) + ": ");
-                try{
+            while(!isAmountValid) {
+                try {
+                    System.out.print("Ingrese el monto del gasto: " + (index + 1) + ": ");
                     amount = scanner.nextDouble();
 
-                    if (amount < 0) {
-                    System.out.println("El monto no es válido. Debe ingresar un valor positivo.");
-                    } else {
-                        isAmountValid = true;
-                    }
-                }catch (Exception e){
+                    expenseAmountValidator.validateAmount(amount);
+                    isAmountValid = true;
+
+                } catch (InvalidExpenseException e) {
+                    System.out.println(e.getMessage());
+                } catch (Exception e) {
                     System.out.println("Error al leer el monto. Asegúrese de ingresar un número válido.");
                     scanner.nextLine();
                     amount = null;
                 }
             }
-            scanner.nextLine();
+                scanner.nextLine();
 
             String categoryName = null;
             boolean isCategoryValid = false;
+
             while (!isCategoryValid) {
                 try {
                     System.out.print("Ingrese la categoría del gasto " + (index + 1) + ": ");
@@ -75,7 +76,7 @@ public class Main {
             }
             category.setName(categoryName);
 
-            System.out.print("Ingrese la fecha del gasto: (dd/MM/yyyy): ");
+            System.out.print("Ingme = rese la fecha del gasto: (dd/MM/yyyy): ");
             String date = scanner.nextLine();
 
             expense.setId(counter);
