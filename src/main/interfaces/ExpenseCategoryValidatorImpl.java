@@ -1,6 +1,6 @@
-package interfaces;
+package main.interfaces;
 
-import exception.InvalidCategoryException;
+import main.exception.InvalidCategoryException;
 
 public class ExpenseCategoryValidatorImpl implements ExpenseCategoryValidator {
     @Override

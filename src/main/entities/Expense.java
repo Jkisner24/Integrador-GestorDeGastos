@@ -1,19 +1,22 @@
-package entities;
+package main.entities;
 
 public class Expense {
     private Integer id;
     private Double amount;
-    private String category;
+    private int category;
     private String date;
 
     public Expense() {
     }
 
-    public Expense(Integer id, Double amount, String category, String date) {
+    public Expense(Integer id, Double amount, int category, String date) {
         this.id = id;
         this.amount = amount;
         this.category = category;
         this.date = date;
+    }
+
+    public Expense(Double amount, String category, String date) {
     }
 
     public Integer getId() {
@@ -32,11 +35,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 

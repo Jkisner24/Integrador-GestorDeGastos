@@ -1,4 +1,4 @@
-package exception;
+package main.exception;
 
 public class InvalidExpenseException extends Exception{
     public InvalidExpenseException(String message){

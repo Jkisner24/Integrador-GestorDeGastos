@@ -1,6 +1,6 @@
-package interfaces;
+package main.interfaces;
 
-import exception.InvalidCategoryException;
+import main.exception.InvalidCategoryException;
 
 @FunctionalInterface
 public interface ExpenseCategoryValidator {
